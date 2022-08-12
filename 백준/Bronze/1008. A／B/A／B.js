@@ -1,5 +1,6 @@
 var fs = require('fs');
-var inputData = fs.readFileSync(0, 'utf8').toString().split(' ');
-var a = parseInt(inputData[0]);
-var b = parseInt(inputData[1]);
+var input = fs.readFileSync('/dev/stdin').toString().split(' ');
+var a = parseInt(input[0]);
+var b = parseInt(input[1]);
+
 console.log(a/b);
