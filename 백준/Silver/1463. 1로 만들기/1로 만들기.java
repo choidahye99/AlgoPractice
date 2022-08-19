@@ -1,28 +1,35 @@
 import java.util.Scanner;
 
 public class Main {
+	static int ans = Integer.MAX_VALUE;
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
+		int n = sc.nextInt();
 		
-		int arr[] = new int[N+1];
+		toOne(n, 0);
+		System.out.println(ans);
+	
+
+	}
+	
+	static void toOne(int n, int cnt) {
 		
-		arr[0] = -1;
-		arr[1] = 0;
-		
-		for(int i=2; i<N+1; i++) {
-			
-			
-			int min = arr[i-1]+1;
-			if(i%2 ==0) {
-				if(min>arr[i/2]+1) min = arr[i/2]+1;
-			}
-			if(i%3 ==0) {
-				if(min>arr[i/3]+1) min = arr[i/3]+1;
-			}
-			arr[i] = min;
+		if(n==1) {
+			ans = Math.min(ans, cnt);
+			return;
 		}
 		
-		System.out.println(arr[N]);
+		if(cnt >= ans) return;
+		
+		if(n%3==0) {
+			toOne(n/3, cnt+1);
+		}
+		
+		if(n%2==0) {
+			toOne(n/2, cnt+1);
+		}
+		
+		toOne(n-1, cnt+1);
+
 	}
 }
