@@ -7,7 +7,9 @@ public class Main {
 	
 	static int N; //맵 크기
 	static int[][] board; // 맵
-	static boolean[][] visited; // 방문한 적 있는지 없는지 판단
+
+	//방문한 적 있는지 없는지 판단
+	static boolean[][] visited; // 이 조건 없이 진행하면 재귀를 너무 많이 해서 메모리 초과 뜸
 	static int answer = -1; // 초기값 -1로 설정. 나중에 정답 찾으면 1로 변경
 
 	public static void dfs(int r, int c) {
@@ -50,7 +52,7 @@ public class Main {
 		visited[0][0] = true; //시작점은 무조건 방문
 		dfs(0,0); //탐색 시작
 		
-		if(answer==-1) { //(N-1, N-1) 좌표까지 도달하지 못했으면
+		if(answer==-1) { //(N-1, N-1) 좌표까지 도달하지 못했으면 answer 값이 바뀌지 않았으니
 			System.out.println("Hing");
 		} else {
 			System.out.println("HaruHaru");
