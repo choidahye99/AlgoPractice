@@ -9,7 +9,7 @@ public class Solution {
 		for(int tc=1; tc<=T; tc++) {
 			
 			int N = sc.nextInt(); //입력받을 숫자 크기
-			int[] num = new int[N];
+			int[] num = new int[N]; //숫자 입력
 			
 			for(int i=0; i<N; i++) {
 				num[i] = sc.nextInt();
@@ -41,8 +41,8 @@ public class Solution {
 				}
 			}
 			
-            if(max==0) max = -1;
-            
+			if(max==0) max = -1;
+			
 			System.out.println("#"+tc+" "+max);
 			
 			
