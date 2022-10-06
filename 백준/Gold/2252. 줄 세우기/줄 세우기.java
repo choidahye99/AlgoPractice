@@ -1,58 +1,53 @@
-
 import java.util.ArrayList;
-
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
-import java.util.Stack;
 
 public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		int M = sc.nextInt();
-
-		int[] arr = new int[N + 1];
-		ArrayList<Integer>[] tree = new ArrayList[N + 1];
-		for (int i = 0; i <= N; i++) {
-			tree[i] = new ArrayList<>();
-		}
-		for (int i = 0; i < M; i++) {
-			int small = sc.nextInt();
-			int tall = sc.nextInt();
-			tree[tall].add(small);
-			arr[small]++;
-		}
-
-		Queue<Integer> q = new LinkedList<Integer>();
 		
-		Stack<Integer> stack = new Stack<Integer>();
+		int N = sc.nextInt(); //학생들의 수
+		int M = sc.nextInt(); //키를 비교한 횟수
+		int[] inDg = new int[N]; //in degree
+		List<Integer>[] adj = new ArrayList[N]; //인접리스트
 		
-		for(int i =1; i<=N; i++) {
-			if(arr[i] == 0) {
+		for(int i=0; i<N; i++) {
+			adj[i] = new ArrayList<>();
+		}
+		
+		//정점 연결하고 인디그리 ++
+		for(int i=0; i<M; i++) {
+			int prev = sc.nextInt()-1; //앞에 서야 하는 학생
+			int next = sc.nextInt()-1; //뒤에 서야 하는 학생
 			
-				q.add(i);
+			adj[prev].add(next);
+			inDg[next]++;
+		}
+		
+		//시작정점 다 큐에 담기
+		Queue<Integer> q = new LinkedList<>();
+		
+		for(int i=0; i<N; i++) {
+			if(inDg[i] == 0) q.add(i);
+		}
+		
+		//큐가 빌 때까지
+		while(!q.isEmpty()) {
+			int st = q.poll(); //학생 꺼내서
+			System.out.print((st+1)+" "); //출력
+
+			
+			for(int i=0; i<adj[st].size(); i++) { //st에 연결돼 있는 거 다 돌자
+				int nt = adj[st].get(i);
+				inDg[nt]--; //연결돼있는 거 전입 하나 빼줘
+				
+				if(inDg[nt]==0) q.add(nt);
 				
 			}
 		}
 		
-		while(true) {
-			
-			// 큐에 맨 앞에 것을 꺼내서, 연결된 값들에 대해 진입차수를 1개씩 마이너스 해주고, 0이 되면, 큐에 넣어준다. 
-			for(int i=0; i<tree[q.peek()].size(); i++) {
-				int linkedNode = tree[q.peek()].get(i);
-				arr[linkedNode]--;
-				if(arr[linkedNode] == 0) q.add(linkedNode);
-				
-			}
-			stack.add (q.poll());
-			
-			if(stack.size() == N) break;
-		}
-		
-		
-		while(!stack.isEmpty()) {
-			System.out.print(stack.pop()+" ");
-		}
-	}
+	} //main
+
 }
